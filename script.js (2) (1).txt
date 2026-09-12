@@ -1,0 +1,146 @@
+let currentPosition = 4;
+let ticketCounter = 104;
+
+
+// Open Queue Modal
+function joinQueue() {
+    document.getElementById("queueModal").classList.add("active");
+    document.getElementById("customerName").focus();
+}
+
+
+// Close Modal
+function closeModal() {
+    document.getElementById("queueModal").classList.remove("active");
+}
+
+
+// Create Digital Ticket
+function createTicket() {
+
+    const name = document.getElementById("customerName").value.trim();
+    const result = document.getElementById("ticketResult");
+
+    if (name === "") {
+        result.innerHTML = "⚠️ Please enter your name.";
+        return;
+    }
+
+    ticketCounter++;
+
+    const ticket = "A-" + ticketCounter;
+
+    currentPosition++;
+
+    document.getElementById("position").textContent =
+        String(currentPosition).padStart(2, "0");
+
+    document.getElementById("ahead").textContent =
+        (currentPosition - 1) + " people";
+
+    document.getElementById("ticketNumber").textContent = ticket;
+
+    result.innerHTML =
+        `🎫 Hello ${name}!<br>
+         Your ticket is <strong>${ticket}</strong>`;
+
+    setTimeout(() => {
+        closeModal();
+    }, 2500);
+}
+
+
+// Notification
+function notifyUser() {
+
+    if ("Notification" in window) {
+
+        if (Notification.permission === "granted") {
+
+            new Notification("QFlow", {
+                body: "You're almost next! Get ready."
+            });
+
+        } else if (Notification.permission !== "denied") {
+
+            Notification.requestPermission().then(permission => {
+
+                if (permission === "granted") {
+                    new Notification("QFlow", {
+                        body: "Notifications enabled successfully!"
+                    });
+                }
+
+            });
+
+        }
+
+    } else {
+        alert("QFlow notification enabled!");
+    }
+}
+
+
+// Login Demo
+function login() {
+    alert(
+        "QFlow Login\n\n" +
+        "Login system can be connected to a database later."
+    );
+}
+
+
+// Simulate Live Queue
+setInterval(() => {
+
+    if (currentPosition > 1) {
+
+        currentPosition--;
+
+        const positionElement =
+            document.getElementById("position");
+
+        const aheadElement =
+            document.getElementById("ahead");
+
+        const progressBar =
+            document.getElementById("progressBar");
+
+        const progressText =
+            document.getElementById("progressText");
+
+        const waitTime =
+            document.getElementById("waitTime");
+
+        positionElement.textContent =
+            String(currentPosition).padStart(2, "0");
+
+        aheadElement.textContent =
+            (currentPosition - 1) + " people";
+
+        const progress =
+            Math.max(10, 100 - currentPosition * 8);
+
+        progressBar.style.width = progress + "%";
+
+        progressText.textContent =
+            progress + "%";
+
+        const minutes =
+            Math.max(2, currentPosition * 3);
+
+        waitTime.textContent =
+            minutes + " minutes";
+    }
+
+}, 10000);
+
+
+// Close modal when clicking outside
+document.getElementById("queueModal").addEventListener("click", function(e) {
+
+    if (e.target === this) {
+        closeModal();
+    }
+
+});
