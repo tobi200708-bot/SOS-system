@@ -1,146 +1,112 @@
-let currentPosition = 4;
-let ticketCounter = 104;
+/* =========================================
+   FIREBASE.JS
+========================================= */
+
+import { initializeApp } from
+    "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+    getAuth,
+    onAuthStateChanged
+} from
+    "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    serverTimestamp,
+    query,
+    where,
+    orderBy,
+    limit,
+    onSnapshot
+} from
+    "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 
-// Open Queue Modal
-function joinQueue() {
-    document.getElementById("queueModal").classList.add("active");
-    document.getElementById("customerName").focus();
-}
+/* =========================================
+   FIREBASE CONFIGURATION
+   IMPORTANT: Replace these with your
+   Firebase project values.
+========================================= */
+
+const firebaseConfig = {
+
+    apiKey: "YOUR_API_KEY",
+
+    authDomain:
+        "YOUR_PROJECT.firebaseapp.com",
+
+    projectId:
+        "YOUR_PROJECT_ID",
+
+    storageBucket:
+        "YOUR_PROJECT.firebasestorage.app",
+
+    messagingSenderId:
+        "YOUR_MESSAGING_SENDER_ID",
+
+    appId:
+        "YOUR_APP_ID"
+};
 
 
-// Close Modal
-function closeModal() {
-    document.getElementById("queueModal").classList.remove("active");
-}
+/* =========================================
+   INITIALIZE FIREBASE
+========================================= */
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
 
 
-// Create Digital Ticket
-function createTicket() {
+/* =========================================
+   AUTHENTICATION STATE
+========================================= */
 
-    const name = document.getElementById("customerName").value.trim();
-    const result = document.getElementById("ticketResult");
+onAuthStateChanged(auth, (user) => {
 
-    if (name === "") {
-        result.innerHTML = "⚠️ Please enter your name.";
-        return;
-    }
+    window.firebaseUser = user || null;
 
-    ticketCounter++;
+    if (user) {
 
-    const ticket = "A-" + ticketCounter;
-
-    currentPosition++;
-
-    document.getElementById("position").textContent =
-        String(currentPosition).padStart(2, "0");
-
-    document.getElementById("ahead").textContent =
-        (currentPosition - 1) + " people";
-
-    document.getElementById("ticketNumber").textContent = ticket;
-
-    result.innerHTML =
-        `🎫 Hello ${name}!<br>
-         Your ticket is <strong>${ticket}</strong>`;
-
-    setTimeout(() => {
-        closeModal();
-    }, 2500);
-}
-
-
-// Notification
-function notifyUser() {
-
-    if ("Notification" in window) {
-
-        if (Notification.permission === "granted") {
-
-            new Notification("QFlow", {
-                body: "You're almost next! Get ready."
-            });
-
-        } else if (Notification.permission !== "denied") {
-
-            Notification.requestPermission().then(permission => {
-
-                if (permission === "granted") {
-                    new Notification("QFlow", {
-                        body: "Notifications enabled successfully!"
-                    });
-                }
-
-            });
-
-        }
+        console.log(
+            "User logged in:",
+            user.email || user.uid
+        );
 
     } else {
-        alert("QFlow notification enabled!");
+
+        console.log(
+            "No authenticated user."
+        );
     }
-}
-
-
-// Login Demo
-function login() {
-    alert(
-        "QFlow Login\n\n" +
-        "Login system can be connected to a database later."
-    );
-}
-
-
-// Simulate Live Queue
-setInterval(() => {
-
-    if (currentPosition > 1) {
-
-        currentPosition--;
-
-        const positionElement =
-            document.getElementById("position");
-
-        const aheadElement =
-            document.getElementById("ahead");
-
-        const progressBar =
-            document.getElementById("progressBar");
-
-        const progressText =
-            document.getElementById("progressText");
-
-        const waitTime =
-            document.getElementById("waitTime");
-
-        positionElement.textContent =
-            String(currentPosition).padStart(2, "0");
-
-        aheadElement.textContent =
-            (currentPosition - 1) + " people";
-
-        const progress =
-            Math.max(10, 100 - currentPosition * 8);
-
-        progressBar.style.width = progress + "%";
-
-        progressText.textContent =
-            progress + "%";
-
-        const minutes =
-            Math.max(2, currentPosition * 3);
-
-        waitTime.textContent =
-            minutes + " minutes";
-    }
-
-}, 10000);
-
-
-// Close modal when clicking outside
-document.getElementById("queueModal").addEventListener("click", function(e) {
-
-    if (e.target === this) {
-        closeModal();
-    }
-
 });
+
+
+/* =========================================
+   GLOBAL FIREBASE ACCESS
+========================================= */
+
+window.firebaseDB = db;
+
+window.firebaseAuth = auth;
+
+window.firebaseFunctions = {
+
+    collection,
+    addDoc,
+    serverTimestamp,
+
+    query,
+    where,
+    orderBy,
+    limit,
+
+    onSnapshot
+};
+
+console.log("Firebase initialized successfully.");
