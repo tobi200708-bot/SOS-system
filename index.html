@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Emergency SOS System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        🚨 Emergency SOS
+    </div>
+
+    <button id="startProtection" class="start-btn">
+        Start Automatic Protection
+    </button>
+
+</header>
+
+
+<main>
+
+    <section class="hero">
+
+        <div class="content">
+
+            <div class="badge">
+                AUTOMATIC EMERGENCY SYSTEM
+            </div>
+
+            <h1>
+                Emergency
+                <span>SOS System</span>
+            </h1>
+
+            <p class="description">
+                Automatically detects dangerous movement using
+                your phone sensor and creates an emergency alert
+                with your current location.
+            </p>
+
+
+            <!-- STATUS -->
+
+            <div class="status-card">
+
+                <div class="status-item">
+                    <span>System</span>
+                    <strong id="systemStatus">
+                        NOT ACTIVE
+                    </strong>
+                </div>
+
+                <div class="status-item">
+                    <span>Motion Sensor</span>
+                    <strong id="sensorStatus">
+                        OFF
+                    </strong>
+                </div>
+
+                <div class="status-item">
+                    <span>Location</span>
+                    <strong id="locationStatus">
+                        WAITING
+                    </strong>
+                </div>
+
+                <div class="status-item">
+                    <span>Alert</span>
+                    <strong id="alertStatus">
+                        SAFE
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <!-- MANUAL SOS -->
+
+            <button id="manualSOS" class="sos-button">
+                🚨 EMERGENCY SOS
+            </button>
+
+            <p id="message" class="message"></p>
+
+        </div>
+
+
+        <!-- SENSOR -->
+
+        <div class="sensor-card">
+
+            <h2>
+                📱 Sensor Monitor
+            </h2>
+
+            <div class="sensor-row">
+                <span>Acceleration</span>
+                <strong id="acceleration">
+                    0.00
+                </strong>
+            </div>
+
+            <div class="sensor-row">
+                <span>X</span>
+                <strong id="xValue">
+                    0.00
+                </strong>
+            </div>
+
+            <div class="sensor-row">
+                <span>Y</span>
+                <strong id="yValue">
+                    0.00
+                </strong>
+            </div>
+
+            <div class="sensor-row">
+                <span>Z</span>
+                <strong id="zValue">
+                    0.00
+                </strong>
+            </div>
+
+
+            <div id="alertBox" class="safe-box">
+                No emergency detected
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- HOW IT WORKS -->
+
+    <section class="how">
+
+        <h2>
+            How Automatic Alert Works
+        </h2>
+
+        <div class="steps">
+
+            <div class="step">
+                <div class="number">1</div>
+                <h3>Activate</h3>
+                <p>
+                    Start automatic protection.
+                </p>
+            </div>
+
+            <div class="step">
+                <div class="number">2</div>
+                <h3>Monitor</h3>
+                <p>
+                    Phone motion sensor is monitored.
+                </p>
+            </div>
+
+            <div class="step">
+                <div class="number">3</div>
+                <h3>Detect</h3>
+                <p>
+                    Sudden dangerous movement is detected.
+                </p>
+            </div>
+
+            <div class="step">
+                <div class="number">4</div>
+                <h3>Alert</h3>
+                <p>
+                    Emergency alert and location are
+                    saved to Firebase.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+    Emergency SOS System © 2026
+</footer>
+
+
+<script type="module" src="firebase.js"></script>
+<script type="module" src="script.js"></script>
+
+</body>
+</html>
