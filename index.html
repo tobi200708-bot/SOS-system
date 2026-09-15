@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Emergency SOS System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        🚨 Emergency SOS
+    </div>
+
+    <button id="startProtection" class="start-btn">
+        Start Automatic Protection
+    </button>
+
+</header>
+
+
+<main>
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="badge">
+                AUTOMATIC EMERGENCY SYSTEM
+            </div>
+
+            <h1>
+                Emergency
+                <span>SOS System</span>
+            </h1>
+
+            <p class="description">
+                Automatically detects sudden dangerous movement,
+                gets your location and creates an emergency alert.
+            </p>
+
+
+            <div class="status-card">
+
+                <div class="status-row">
+                    <span>System</span>
+                    <strong id="systemStatus">NOT ACTIVE</strong>
+                </div>
+
+                <div class="status-row">
+                    <span>Motion Sensor</span>
+                    <strong id="sensorStatus">OFF</strong>
+                </div>
+
+                <div class="status-row">
+                    <span>Location</span>
+                    <strong id="locationStatus">WAITING</strong>
+                </div>
+
+                <div class="status-row">
+                    <span>Emergency Alert</span>
+                    <strong id="alertStatus">SAFE</strong>
+                </div>
+
+            </div>
+
+
+            <button id="manualSOS" class="sos-button">
+                🚨 EMERGENCY SOS
+            </button>
+
+            <p id="message" class="message"></p>
+
+        </div>
+
+
+        <div class="sensor-card">
+
+            <h2>📱 Sensor Monitor</h2>
+
+            <div class="sensor-row">
+                <span>Acceleration</span>
+                <strong id="acceleration">0.00</strong>
+            </div>
+
+            <div class="sensor-row">
+                <span>X</span>
+                <strong id="xValue">0.00</strong>
+            </div>
+
+            <div class="sensor-row">
+                <span>Y</span>
+                <strong id="yValue">0.00</strong>
+            </div>
+
+            <div class="sensor-row">
+                <span>Z</span>
+                <strong id="zValue">0.00</strong>
+            </div>
+
+            <div id="alertBox" class="safe-box">
+                No emergency detected
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="how">
+
+        <h2>How It Works</h2>
+
+        <div class="steps
